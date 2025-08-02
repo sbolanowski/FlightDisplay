@@ -29,7 +29,7 @@ def main(width, height, theme="light"):
         draw_gradient_background(degrees, selected_theme)
         draw_red_cross()
 
-        # Manejar la entrada de teclas y el test mode con la función `handle_input`
+        # Handle input teleoperated mode
         degrees, test_mode, last_time, state = handle_input(degrees, max_degree, mult, test_mode, last_time, state=state)
 
         rl.draw_text(f"{int(degrees/mult)} º", 10, 10, 32, rl.YELLOW)
