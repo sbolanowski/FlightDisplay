@@ -41,7 +41,7 @@ def main(width, height, theme="light"):
         # Handle input teleoperated mode
         degrees, test_mode, last_time, state = handle_input(degrees, max_degree, mult, test_mode, last_time, state=state)
 
-        rl.draw_text(f"{int(degrees/mult)} º", 10, 10, 32, rl.YELLOW)
+        rl.draw_text(f"{int(degrees/mult)} º", 10, 10, 32, rl.MAGENTA)
 
         rl.end_drawing()
 

@@ -11,24 +11,17 @@ def draw_marker():
     vertex2 = rl.Vector2(width//6 - 10, height//2 - 25)
     vertex3 = rl.Vector2(width//6 - 35, height//2)
 
-    offset = 3
+    rl.draw_triangle(vertex1, vertex2, vertex3, rl.YELLOW)
 
-    for i in range(-offset, offset + 1):
-        rl.draw_triangle_lines(
-            rl.Vector2(vertex1.x + i, vertex1.y + i),
-            rl.Vector2(vertex2.x + i, vertex2.y + i),
-            rl.Vector2(vertex3.x + i, vertex3.y + i),
-            rl.YELLOW
-        )
 
 
 def draw_airspeed():
 
     # Testing scroll
     global speed
-    if rl.is_key_pressed(rl.KEY_I):
+    if rl.is_key_pressed(rl.KEY_U):
         speed += 1
-    if rl.is_key_pressed(rl.KEY_K):
+    if rl.is_key_pressed(rl.KEY_J):
         if speed > 0:
             speed -= 1
 
@@ -44,7 +37,6 @@ def draw_airspeed():
 
     # -----------------------------------------------------------
     draw_marker()
-
     # -----------------------------------------------------------
 
     # Speed markers   -------------------------------------------
@@ -68,4 +60,4 @@ def draw_airspeed():
 
     # -----------------------------------------------------------
 
-    rl.draw_text(f"Vel: {speed}", 10, height-25, 24, rl.GREEN)
+    rl.draw_text(f"Vel: {speed} kn", 10, height-25, 24, rl.YELLOW)
