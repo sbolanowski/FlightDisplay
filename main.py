@@ -4,9 +4,12 @@ from ui.artificial_horizon import draw_gradient_background, draw_red_cross
 from ui.airspeed import draw_airspeed
 from ui.altimeter import draw_altimeter
 from ui.colors import light, dark
-from utils import handle_input
+from utils import handle_input_attitude, handle_input_altitude, handle_input_speed
 
 # Global vars ------------------
+alt = 0
+speed = 0
+
 degrees = 0
 mult = 10
 max_degree = 90 * mult
@@ -17,7 +20,7 @@ state = "up"
 # ------------------------------
 
 def main(width, height, theme="light"):
-    global degrees, max_degree, mult, test_mode, last_time, state
+    global alt, speed, degrees, max_degree, mult, test_mode, last_time, state
 
     rl.init_window(width, height, "PFD - Drone testing")
     rl.set_target_fps(60)
@@ -30,16 +33,15 @@ def main(width, height, theme="light"):
         selected_theme = light if theme == "light" else dark
 
         draw_gradient_background(degrees, selected_theme)
-        draw_red_cross()
-
-        # ---
-
-        draw_airspeed()
-        draw_altimeter()
+        draw_airspeed(speed)
+        draw_altimeter(alt)
 
 
-        # Handle input teleoperated mode
-        degrees, test_mode, last_time, state = handle_input(degrees, max_degree, mult, test_mode, last_time, state=state)
+        # Handle input teleoperated mode ------------
+        degrees, test_mode, last_time, state = handle_input_attitude(degrees, max_degree, mult, test_mode, last_time, state=state)
+        alt = handle_input_altitude(alt)
+        speed = handle_input_speed(speed)
+        # --------------------------------------------
 
         rl.draw_text(f"{int(degrees/mult)} º", 10, 10, 32, rl.MAGENTA)
 

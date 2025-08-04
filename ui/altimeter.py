@@ -1,9 +1,6 @@
 import raylibpy as rl
 from ui.colors import light, dark
 
-# Testing alt scroll
-alt = 0
-
 
 def draw_marker():
     width, height = rl.get_screen_width(), rl.get_screen_height()
@@ -14,15 +11,7 @@ def draw_marker():
     rl.draw_triangle(vertex1, vertex2, vertex3, rl.DARKBLUE)
 
 
-def draw_altimeter():
-
-    # Testing scroll
-    global alt
-    if rl.is_key_pressed(rl.KEY_I):
-        alt += 1
-    if rl.is_key_pressed(rl.KEY_K):
-        if alt > 0:
-            alt -= 1
+def draw_altimeter(alt):
 
     # Background    ---------------------------------------------
     
@@ -30,10 +19,6 @@ def draw_altimeter():
     color = rl.Color(10, 10, 18, 255)
 
     rl.draw_rectangle(width - width//6, 0, width//6, height, color)
-
-    #rec = rl.Rectangle(width - width//6 + 10, 0 + 10, width//6 - 15, height - 15)
-    #rl.draw_rectangle_rounded(rec, 0.20, 20, color)
-
     
     # -----------------------------------------------------------
     draw_marker()
@@ -60,4 +45,4 @@ def draw_altimeter():
 
     # -----------------------------------------------------------
 
-    rl.draw_text(f"Alt: {alt*10} ft", width-100, height-25, 24, rl.DARKBLUE)
+    rl.draw_text(f"Alt: {alt*10} ft", width-150, height-25, 24, rl.DARKBLUE)

@@ -60,6 +60,8 @@ def draw_gradient_background(degrees, theme):
 
     # ===================================================
 
+    draw_red_cross()
+
     # Markers params
     line_length = 180
     height_separation = 100

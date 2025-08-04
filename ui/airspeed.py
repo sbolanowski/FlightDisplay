@@ -1,9 +1,6 @@
 import raylibpy as rl
 from ui.colors import light, dark
 
-# Testing vel scroll
-speed = 0
-
 
 def draw_marker():
     width, height = rl.get_screen_width(), rl.get_screen_height()
@@ -14,16 +11,7 @@ def draw_marker():
     rl.draw_triangle(vertex1, vertex2, vertex3, rl.YELLOW)
 
 
-
-def draw_airspeed():
-
-    # Testing scroll
-    global speed
-    if rl.is_key_pressed(rl.KEY_U):
-        speed += 1
-    if rl.is_key_pressed(rl.KEY_J):
-        if speed > 0:
-            speed -= 1
+def draw_airspeed(speed):
 
     # Background    ---------------------------------------------
 
@@ -31,9 +19,6 @@ def draw_airspeed():
     color = rl.Color(10, 10, 18, 255)
 
     rl.draw_rectangle(0, 0, width // 6, height, color)
-
-    # rec = rl.Rectangle(0 + 10, 0 + 10, width // 6 - 15, height - 15)
-    # rl.draw_rectangle_rounded(rec, 0.20, 20, custom_color)
 
     # -----------------------------------------------------------
     draw_marker()
@@ -43,7 +28,7 @@ def draw_airspeed():
 
     start_value = 0
     step = 5
-    max_value = 500
+    max_value = 5000
     spacing = 50
 
     y_position = height // 2 -15 + 10*speed

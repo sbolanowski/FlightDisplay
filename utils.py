@@ -1,6 +1,24 @@
 import raylibpy as rl
 
-def handle_input(degrees, max_degree, mult, test_mode, last_time, time_interval=0.2, state="up"):
+def handle_input_speed(speed):
+    if rl.is_key_pressed(rl.KEY_U):
+        speed += 1
+    if rl.is_key_pressed(rl.KEY_J):
+        if speed > 0:
+            speed -= 1
+    return speed
+
+
+def handle_input_altitude(alt):
+    if rl.is_key_pressed(rl.KEY_I):
+        alt += 1
+    if rl.is_key_pressed(rl.KEY_K):
+        if alt > 0:
+            alt -= 1
+    return alt
+
+
+def handle_input_attitude(degrees, max_degree, mult, test_mode, last_time, time_interval=0.2, state="up"):
 
     # Reset ------------------------
     if rl.is_key_pressed(rl.KEY_X):
