@@ -1,6 +1,8 @@
 import raylibpy as rl
 import argparse
 from ui.artificial_horizon import draw_gradient_background, draw_red_cross
+from ui.airspeed import draw_airspeed
+from ui.altimeter import draw_altimeter
 from ui.colors import light, dark
 from utils import handle_input
 
@@ -26,8 +28,15 @@ def main(width, height, theme="light"):
         rl.clear_background(rl.DARKGRAY)
 
         selected_theme = light if theme == "light" else dark
+
         draw_gradient_background(degrees, selected_theme)
         draw_red_cross()
+
+        # ---
+
+        draw_airspeed()
+        draw_altimeter()
+
 
         # Handle input teleoperated mode
         degrees, test_mode, last_time, state = handle_input(degrees, max_degree, mult, test_mode, last_time, state=state)

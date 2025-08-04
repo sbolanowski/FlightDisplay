@@ -1,5 +1,18 @@
 #!/bin/bash
 
+if [ ! -d ".venv" ]; then
+
+    python3 -m venv .venv
+
+    source .venv/bin/activate || { echo "ERROR: Cannot create virtual env"; exit 1; }
+
+    pip install --upgrade pip
+    pip3 install -r requirements.txt || { echo "ERROR: pip install"; exit 1; }
+else
+    source .venv/bin/activate || { echo "ERROR: Cannot create virtual env"; exit 1; }
+fi
+
+
 usage() {
     echo "Usage: $0 [--width WIDTH] [--height HEIGHT] [--theme THEME]"
     echo ""
