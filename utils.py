@@ -17,6 +17,20 @@ def handle_input_altitude(alt):
             alt -= 1
     return alt
 
+def handle_input_roll(roll, max_degree):
+    # Roll counter-clockwise
+    if rl.is_key_pressed(rl.KEY_A):
+        if roll > -max_degree:
+            roll -= 1
+    
+    # Roll clockwise
+    if rl.is_key_pressed(rl.KEY_D):
+        if roll < max_degree:
+            roll += 1
+
+    return roll
+
+
 
 def handle_input_attitude(degrees, max_degree, mult, test_mode, last_time, time_interval=0.2, state="up"):
 

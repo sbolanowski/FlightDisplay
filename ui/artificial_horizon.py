@@ -1,4 +1,6 @@
 import raylibpy as rl
+import math
+
 from ui.colors import light, dark
 
 def draw_red_cross():
@@ -17,8 +19,7 @@ def draw_red_cross():
 
 # ------------------------------
 
-def draw_gradient_background(degrees, theme):
-
+def draw_gradient_background(degrees, roll, theme):
     width, height = rl.get_screen_width(), rl.get_screen_height()
     mult = 2
     extended_height = height * mult
@@ -29,9 +30,12 @@ def draw_gradient_background(degrees, theme):
     earth_color_light = theme["earth"]["light"]
     earth_color_dark = theme["earth"]["dark"]
 
+    # Create rotation matrix for the roll
+
+    rl.begin_mode2d(rl.Camera2D(target=(0,0), offset=(0,0), rotation=roll, zoom=1.0))
+
     # Sky
     for i in range(-extended_height, extended_height):
-
         ratio = (i + extended_height) / (extended_height * 2)
 
         color = rl.Color(
@@ -44,7 +48,6 @@ def draw_gradient_background(degrees, theme):
 
     # Ground
     for i in range(extended_height // 2, extended_height * 2):
-
         ratio = ((i - extended_height // 2) / (extended_height // 2))
 
         color = rl.Color(
@@ -60,16 +63,13 @@ def draw_gradient_background(degrees, theme):
 
     # ===================================================
 
-    draw_red_cross()
-
     # Markers params
     line_length = 180
     height_separation = 100
     offset = 20
 
     for i in range(-18, 19):  # x5 Degree marker
-
-        if i < 0 and theme==dark:
+        if i < 0 and theme == dark:
             color = rl.BLACK
         else:
             color = rl.WHITE
@@ -77,10 +77,8 @@ def draw_gradient_background(degrees, theme):
         y_position = horizon_y + i * (height_separation / 2)
         rl.draw_line(width // 2 - (line_length / 2) // 2, y_position, width // 2 + (line_length / 2) // 2, y_position, color)
 
-
     for i in range(-9, 10):  # x10 Degree marker
-
-        if i < 0 and theme==dark:
+        if i < 0 and theme == dark:
             color = rl.BLACK
         else:
             color = rl.WHITE
@@ -91,4 +89,10 @@ def draw_gradient_background(degrees, theme):
         if i != 0:  # Print numeric degree
             degree = i * (-10)
             rl.draw_text(str(degree), width // 2 + line_length // 2 + offset, y_position - 10, 24, color)  # Right
-            rl.draw_text(str(degree), width // 2 - line_length // 2 - offset - (offset*2), y_position - 10, 24, color) # Left
+            rl.draw_text(str(degree), width // 2 - line_length // 2 - offset - (offset * 2), y_position - 10, 24, color)  # Left
+
+    # End 2D mode after drawing
+
+    draw_red_cross()
+    
+    rl.end_mode2d()

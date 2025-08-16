@@ -1,10 +1,10 @@
 import raylibpy as rl
 import argparse
-from ui.artificial_horizon import draw_gradient_background, draw_red_cross
+from ui.artificial_horizon import draw_gradient_background
 from ui.airspeed import draw_airspeed
 from ui.altimeter import draw_altimeter
 from ui.colors import light, dark
-from utils import handle_input_attitude, handle_input_altitude, handle_input_speed
+from utils import handle_input_attitude, handle_input_altitude, handle_input_speed, handle_input_roll
 
 # Global vars ------------------
 alt = 0
@@ -14,13 +14,15 @@ degrees = 0
 mult = 10
 max_degree = 90 * mult
 
+roll = 0 
+
 test_mode = False
 last_time = 0
 state = "up"
 # ------------------------------
 
 def main(width, height, theme="light"):
-    global alt, speed, degrees, max_degree, mult, test_mode, last_time, state
+    global alt, speed, degrees, roll, max_degree, mult, test_mode, last_time, state
 
     rl.init_window(width, height, "PFD - Drone testing")
     rl.set_target_fps(60)
@@ -32,7 +34,9 @@ def main(width, height, theme="light"):
 
         selected_theme = light if theme == "light" else dark
 
-        draw_gradient_background(degrees, selected_theme)
+
+
+        draw_gradient_background(degrees, roll, selected_theme)
         draw_airspeed(speed)
         draw_altimeter(alt)
 
@@ -41,9 +45,11 @@ def main(width, height, theme="light"):
         degrees, test_mode, last_time, state = handle_input_attitude(degrees, max_degree, mult, test_mode, last_time, state=state)
         alt = handle_input_altitude(alt)
         speed = handle_input_speed(speed)
+        roll = handle_input_roll(roll, max_degree/mult)
+
         # --------------------------------------------
 
-        rl.draw_text(f"{int(degrees/mult)} º", 10, 10, 32, rl.MAGENTA)
+        rl.draw_text(f"{int(roll)} º", 10, 10, 32, rl.MAGENTA)
 
         rl.end_drawing()
 
